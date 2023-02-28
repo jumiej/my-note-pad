@@ -1,115 +1,85 @@
-import { useState } from 'react';
+import React, { Component } from 'react';
 import uuid from 'react-uuid';
 import './App.css';
 import Main from './Main';
 import Sidebar from './Sidebar';
 
-function App() {
-  const [notes, setNotes] = useState([]);
-  const [activeNote, setActiveNote] = useState(false);
+class App extends Component {
+  constructor(props) {
+    super(props);
 
-const [title, setTitle] =useState("");
-const [description, setDescription] = useState("");
+    this.state = {
+      notes: [],
+      activeNote: false,
+      title: "",
+      description: "",
+      input: false,
+    };
+  }
 
-
-  const onAddNote = () => {
-    
+  onAddNote = () => {
     const newNote = {
-     
       id: uuid(),
-
-      title: title,
-
-      body:description,
-
+      title: this.state.title,
+      body: this.state.description,
       lastModified: Date.now(),
     };
 
-    setNotes([...notes, newNote]);
-
+    this.setState(prevState => ({ notes: [...prevState.notes, newNote] }));
   };
 
-  const onUpdateNote = (UpdatedNote) => {
-    const updatedNotesArray = notes.map((note) => {
-      if (notes.id === activeNote) {
-        return UpdatedNote; 
+  onUpdateNote = (updatedNote) => {
+    const updatedNotesArray = this.state.notes.map((note) => {
+      if (note.id === this.state.activeNote) {
+        return updatedNote;
       }
-
       return note;
     });
 
-    setNotes(updatedNotesArray);
-
+    this.setState({ notes: updatedNotesArray });
   };
 
-  
-  const onDeleteNote =(idToDelete) => {
-    setNotes(notes.filter((note) => note.id !== idToDelete));
+  onDeleteNote = (idToDelete) => {
+    const filteredNotes = this.state.notes.filter((note) => note.id !== idToDelete);
+    this.setState({ notes: filteredNotes });
   };
 
-  const getActiveNote = () =>{
-    return notes.find((note) => note.id === activeNote);
-  } 
+  getActiveNote = () => {
+    return this.state.notes.find((note) => note.id === this.state.activeNote);
+  };
 
-  ///
-  // const UploadAvater = () => {
-  //   const [src, setSrc] = useState(null);
-  //   const [preview, setPreview] = useState(null);
+  showInput = () => {
+    this.setState({ input: true });
+  };
 
-  //   const onClose = () =>{
-  //     setPreview(null);
-  //   }
+  render() {
+    const { notes, activeNote, title, description, input } = this.state;
+    const sortedNotes = notes.sort((a, b) => b.lastModified - a.lastModified);
 
-  //   const onCrop = view => {
-  //     setPreview(view);
-  //   }
+    return (
+      <div className="App">
+        <Sidebar
+          notes={sortedNotes}
+          onAddNote={this.onAddNote}
+          onDeleteNote={this.onDeleteNote}
+          activeNote={activeNote}
+          setActiveNote={(id) => this.setState({ activeNote: id })}
+          title={title}
+          showInput={this.showInput}
+        />
 
-  //   return (
-  //     <div className='Avater'>
-  //       <div
-  //       onCrop={onCrop} 
-  //       onClose={onClose} 
-  //       src={src} 
-        
-  //       />
-  //     </div>
-  //   )
-  // }
-  const [input, setInput] = useState(false)
-
-  const showInput = () => {
-    setInput(true)
+        <Main
+          activeNote={this.getActiveNote()}
+          onUpdateNote={this.onUpdateNote}
+          title={title}
+          setTitle={(title) => this.setState({ title })}
+          description={description}
+          setDescription={(description) => this.setState({ description })}
+          input={input}
+        />
+      </div>
+    );
   }
-
-
-
-  ///
-  return (
-    <div className="App">
-
-  
-
-    <Sidebar
-     notes={notes} 
-     onAddNote={onAddNote}  
-     onDeleteNote={onDeleteNote}
-     activeNote={activeNote}
-     setActiveNote={setActiveNote}
-     title={title}
-     showInput={showInput}
-     
-    />
-
-<Main 
-  activeNote={getActiveNote()}
-  onUpdateNote={onUpdateNote} 
-  title={title}  setTitle={setTitle}
-  description={description} setDescription={setDescription}
-  nput={input}
-  />
-     
-    </div>
-  );
 }
 
 export default App;

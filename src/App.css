@@ -160,6 +160,12 @@ textarea {
 
 } 
 
+.pic {
+  width:200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
 .italic {
   font-style: italic;
   /* padding: 5px; */
@@ -180,4 +186,15 @@ textarea {
   
 
 } 
+#but {
+  width: 65px;
+  padding: 5px;
+  background-color: #fff;
+  border-radius: 4px;
+  margin-top: 20px;
+  
+}
 
+#but :hover {
+  background-color: #04c;
+}
