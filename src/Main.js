@@ -1,19 +1,19 @@
 import { useState } from "react";
 
 function Main (props) {
-    const{activeNote, onUpdateNote, title, setTitle, description, setDescription, input }= props
+    const{activeNote, title, setTitle, description, setDescription, }= props
     const [selectedImage, setSelectedImage] = useState(null);
     const [textContorl, setTextControl] = useState("normal")
+    console.log('0000',textContorl)
 
-    const onEditField = (key, value) => {
-        onUpdateNote({
-            ...activeNote,
+    // const onEditField = (key, value) => {
+     //         ...activeNote,
 
-            [key]: value,
+    //         [key]: value,
 
-            lastModified: Date.now(),
-        });
-    };
+    //         lastModified: Date.now(),
+    //     });
+    // };
 
     if(!activeNote) 
     return <div className="no-active-note"> No note selected </div>;
@@ -21,7 +21,6 @@ function Main (props) {
 
     return (
         <div className="app-main">
-            {/* {input && */}
             <div className="app-main-note-edit">
                 <input className={textContorl === "italic" ? "italic" : "bold"}
                 typeof="text" 
@@ -32,26 +31,23 @@ function Main (props) {
                 />
 
                 <textarea 
-                className={textContorl === "italic" ? "italic" : "" || textContorl === "bold" ? "bold" : "" }
-                // className="italic"
+                className={textContorl === "italic" ? "italic" : textContorl === "bold" ? "bold" : "" }
                 id="body" 
                 placeholder="Write your note here..."
                 value={description} 
                 onChange={(e) => setDescription(e.target.value)} 
                 />
 
-                
-                <button  onClick={() => setTextControl("italic")} >
-                    italic
-                </button>
+                <div className="buttonWrap">
 
-                <button onClick={() => setTextControl("bold")}>
-                    bold
-                </button>
+                    <button id="btn" onClick={ () => setTextControl("italic")  }  >italic </button>
+                    <button id="btn" onClick={() => setTextControl("bold")}>
+                        bold
+                    </button>
+                </div>
             
 
             </div>
-            {/* } */}
 
             <div className="app-main-note-preview">
                 <h1 className="preview-title">UploadPicture</h1>

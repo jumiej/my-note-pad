@@ -29,7 +29,7 @@ button {
 }
 button:hover {
   color: #04c;
-}
+} 
 
 .App {
   display: flex;
@@ -94,8 +94,13 @@ button:hover {
 .app-main-note-edit,
 .app-main-note-preview {
   height: 50vh;
-}
 
+}
+.buttonWrap {
+  width: 10%;
+  display: flex;
+  justify-content: space-between;
+}
 .no-active-note {
   width: 70%;
   height: 100vh;
@@ -146,31 +151,33 @@ textarea {
   line-height: 2rem;
 }
 
-/* .btn {
-  width: 150px;
-  display: flex;
-  justify-content: space-around;
-  margin-top: 0%;
+ #btn {
+ padding: 5px;
+  background-color: #04c; 
+  color: #fff;
+  border-radius: 25%;
+  /* border: 1px red solid; */
 
-}
-.slant {
+} 
+
+.italic {
   font-style: italic;
-  padding: 5px;
-  background-color: #04c;
-  color: #fff;
-  border-radius: 25%;
-  margin-top: 0;
+  /* padding: 5px; */
+  /* background-color: #04c; */
+  /* color: #fff; */
+  /* border-radius: 25%; */
+  /* margin-top: 0; */
 
-}
+} 
 
-.thick {
+ .bold {
   font-weight: bold; 
-  padding: 5px;
-  background-color: #04c;
-  color: #fff;
-  border-radius: 25%;
-  margin-top: 0;
+  /* padding: 5px; */
+  /* background-color: #04c; */
+  /* color: #fff; */
+  /* border-radius: 25%; */
+  /* margin-top: 0; */
   
 
-}
- */
+} 
+
